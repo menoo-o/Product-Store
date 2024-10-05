@@ -1,19 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
-import {connectDB} from './config/db.js'
 dotenv.config();
+import {connectDB} from './config/db.js'
 
-const port = 5000;
+import productRoutes from './routes/product.route.js'
+
+
 const app = express();
+const port = process.env.PORT || 5000;
 
-app.get("/products", (req, res)=>{
-    res.send("server is ready");
-})
+// Middleware to handle JSON request body
+app.use(express.json());
 
-
-
-
-
+//routes
+app.use("/api/products", productRoutes)
 
 app.listen(5000, ()=>{
     connectDB();
